@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Estudio Facu - Análisis Acústico 3D</title>
+    <style>
+        :root {
+            --bg-color: #0f172a;
+            --glass-bg: rgba(15, 23, 42, 0.6);
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --accent: #38bdf8;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+        }
+
+        body { margin: 0; overflow: hidden; background-color: var(--bg-color); font-family: 'Inter', system-ui, -apple-system, sans-serif; }
+        #canvas-container { width: 100vw; height: 100vh; }
+        
+        /* UI Panel (Glassmorphism) */
+        #ui-panel {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            width: 320px;
+            color: var(--text-main);
+            background: var(--glass-bg);
+            padding: 24px;
+            border-radius: 16px;
+            border: 1px solid var(--glass-border);
+            backdrop-filter: blur(12px);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+            pointer-events: auto;
+        }
+
+        h1 { margin: 0 0 8px 0; font-size: 1.4rem; font-weight: 600; letter-spacing: -0.025em; }
+        p.subtitle { margin: 0 0 20px 0; font-size: 0.9rem; color: var(--text-muted); line-height: 1.4; }
+
+        /* State Toggle Button */
+        .toggle-btn {
+            width: 100%;
+            padding: 12px;
+            background: rgba(56, 189, 248, 0.1);
+            border: 1px solid rgba(56, 189, 248, 0.3);
+            color: var(--accent);
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        .toggle-btn:hover {
+            background: rgba(56, 189, 248, 0.2);
+            box-shadow: 0 0 15px rgba(56, 189, 248, 0.2);
+        }
+        .toggle-btn.original {
+            background: rgba(239, 68, 68, 0.1);
+            border: 1px solid rgba(239, 68, 68, 0.3);
+            color: #f87171;
+        }
+        .toggle-btn.original:hover {
+            background: rgba(239, 68, 68, 0.2);
+            box-shadow: 0 0 15px rgba(239, 68, 68, 0.2);
+        }
+
+        /* Metrics */
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+        .metric-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--glass-border);
+            padding: 12px;
+            border-radius: 8px;
+            text-align: center;
+        }
+        .metric-value { font-size: 1.5rem; font-weight: 700; margin-bottom: 4px; }
+        .metric-label { font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em; }
+        
+        .metric-value.bad { color: #f87171; }
+        .metric-value.good { color: #4ade80; }
+
+        /* Tooltip */
+        #tooltip {
+            position: absolute;
+            background: var(--glass-bg);
+            color: var(--text-main);
+            padding: 16px;
+            border-radius: 12px;
+            border: 1px solid var(--glass-border);
+            backdrop-filter: blur(12px);
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.2s ease;
+            transform: translate(15px, 15px);
+            z-index: 100;
+            max-width: 250px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+        }
+        #tooltip h3 { margin: 0 0 6px 0; font-size: 1.1rem; font-weight: 600; color: var(--accent); }
+        #tooltip .badge { display: inline-block; padding: 3px 8px; border-radius: 4px; font-size: 0.7rem; font-weight: 700; background: rgba(255,255,255,0.1); margin-bottom: 8px; }
+        #tooltip p { margin: 0; font-size: 0.85rem; color: #cbd5e1; line-height: 1.5; }
+
+        /* Instructions */
+        .instructions { font-size: 0.8rem; color: var(--text-muted); text-align: center; display: flex; align-items: center; justify-content: center; gap: 6px;}
+
+        /* Loader */
+        #loader { position: absolute; inset: 0; background: var(--bg-color); display: flex; align-items: center; justify-content: center; color: white; font-size: 1.2rem; z-index: 1000; transition: opacity 0.5s; }
+    </style>
+    <!-- Import Three.js -->
+    <script type="importmap">
+        {
+            "imports": {
+                "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+                "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
+            }
+        }
+    </script>
+</head>
+<body>
+    <div id="loader">Cargando Simulación...</div>
+
+    <div id="ui-panel">
+        <h1 id="project-title">Estudio Facu</h1>
+        <p class="subtitle">Análisis Acústico y Optimización</p>
+
+        <button id="state-toggle" class="toggle-btn">
+            Ver Estado Original
+        </button>
+
+        <div class="metrics-grid">
+            <div class="metric-card">
+                <div class="metric-value good" id="rt60-metric">0.5s</div>
+                <div class="metric-label">RT60 Estimado</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-value good" id="target-metric">0.5s</div>
+                <div class="metric-label">RT60 Objetivo</div>
+            </div>
+        </div>
+
+        <div class="instructions">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><path d="M12 16v-4"></path><path d="M12 8h.01"></path></svg>
+            Navegá en 3D y pasá el mouse sobre los objetos
+        </div>
+    </div>
+
+    <div id="tooltip">
+        <h3 id="tt-title">Panel Acústico</h3>
+        <div class="badge" id="tt-class">TRATAMIENTO_ACUSTICO</div>
+        <p id="tt-desc">Absorbe frecuencias medias y altas para reducir el tiempo de reverberación.</p>
+    </div>
+
+    <div id="canvas-container"></div>
+
+    <script type="module">
+        import * as THREE from 'three';
+        import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+
+        // Globals
+        let scene, camera, renderer, controls;
+        let isOptimized = true;
+        
+        // Raycaster
+        const raycaster = new THREE.Raycaster();
+        const mouse = new THREE.Vector2();
+        let interactableMeshes = [];
+
+        // Groups
+        const treatmentGroup = new THREE.Group();
+        const raysGroup = new THREE.Group();
+        const modesGroup = new THREE.Group();
+        const roomGroup = new THREE.Group();
+
+        // UI Elements
+        const tooltip = document.getElementById('tooltip');
+        const ttTitle = document.getElementById('tt-title');
+        const ttClass = document.getElementById('tt-class');
+        const ttDesc = document.getElementById('tt-desc');
+        const toggleBtn = document.getElementById('state-toggle');
+        const rt60Metric = document.getElementById('rt60-metric');
+
+        init();
+        loadModel();
+
+        function init() {
+            const container = document.getElementById('canvas-container');
+
+            // Scene setup
+            scene = new THREE.Scene();
+            scene.background = new THREE.Color('#0f172a');
+            scene.fog = new THREE.FogExp2('#0f172a', 0.001);
+
+            scene.add(roomGroup);
+            scene.add(treatmentGroup);
+            scene.add(raysGroup);
+            scene.add(modesGroup);
+
+            // Camera setup
+            camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 10000);
+            camera.position.set(300, 350, 400);
+
+            // Renderer setup
+            renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+            renderer.shadowMap.enabled = true;
+            renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+            renderer.toneMapping = THREE.ACESFilmicToneMapping;
+            container.appendChild(renderer.domElement);
+
+            // Controls setup
+            controls = new OrbitControls(camera, renderer.domElement);
+            controls.enableDamping = true;
+            controls.dampingFactor = 0.05;
+            controls.target.set(0, 100, 0);
+            controls.maxPolarAngle = Math.PI / 2 + 0.1; // Limit panning below ground
+
+            // Lighting
+            const ambientLight = new THREE.AmbientLight(0xffffff, 0.4);
+            scene.add(ambientLight);
+
+            const dirLight = new THREE.DirectionalLight(0xffffff, 1.5);
+            dirLight.position.set(150, 300, 200);
+            dirLight.castShadow = true;
+            dirLight.shadow.mapSize.width = 2048;
+            dirLight.shadow.mapSize.height = 2048;
+            scene.add(dirLight);
+
+            const fillLight = new THREE.DirectionalLight(0xa5b4fc, 0.5);
+            fillLight.position.set(-150, 100, -200);
+            scene.add(fillLight);
+
+            // Grid
+            const gridHelper = new THREE.GridHelper(1000, 50, 0x334155, 0x1e293b);
+            gridHelper.position.y = -5; 
+            scene.add(gridHelper);
+
+            // Event Listeners
+            window.addEventListener('resize', onWindowResize);
+            window.addEventListener('mousemove', onMouseMove);
+            toggleBtn.addEventListener('click', toggleState);
+
+            // Animation loop
+            renderer.setAnimationLoop(animate);
+        }
+
+        async function loadModel() {
+            try {
+                // Fetch SSOT JSON
+                const response = await fetch('./proyecto_obra.json');
+                const data = await response.json();
+                
+                // Parse materials
+                const materials = {};
+                if (data.materials_palette) {
+                    for (const [key, matData] of Object.entries(data.materials_palette)) {
+                        materials[key] = new THREE.MeshStandardMaterial({
+                            color: new THREE.Color(matData.color || '#ffffff'),
+                            roughness: matData.roughness !== undefined ? matData.roughness : 0.5,
+                            metalness: matData.metalness !== undefined ? matData.metalness : 0.0,
+                            transparent: matData.transparent || false,
+                            opacity: matData.opacity !== undefined ? matData.opacity : 1.0,
+                            wireframe: matData.wireframe || false,
+                            side: THREE.DoubleSide
+                        });
+                    }
+                }
+
+                const defaultMaterial = new THREE.MeshStandardMaterial({ color: 0xcccccc });
+
+                // Build geometry from nodes
+                if (data.nodes) {
+                    data.nodes.forEach(node => {
+                        let geometry;
+                        if (node.geometry && node.geometry.type === 'BoxGeometry') {
+                            geometry = new THREE.BoxGeometry(
+                                node.geometry.width || 1, 
+                                node.geometry.height || 1, 
+                                node.geometry.depth || 1
+                            );
+                        }
+
+                        if (geometry) {
+                            const material = materials[node.material_ref] || defaultMaterial;
+                            const mesh = new THREE.Mesh(geometry, material);
+                            mesh.castShadow = true;
+                            mesh.receiveShadow = true;
+
+                            // Apply transforms
+                            if (node.transform) {
+                                if (node.transform.position) mesh.position.set(...node.transform.position);
+                                if (node.transform.rotation) {
+                                    mesh.rotation.set(
+                                        THREE.MathUtils.degToRad(node.transform.rotation[0] || 0),
+                                        THREE.MathUtils.degToRad(node.transform.rotation[1] || 0),
+                                        THREE.MathUtils.degToRad(node.transform.rotation[2] || 0)
+                                    );
+                                }
+                                if (node.transform.scale) mesh.scale.set(...node.transform.scale);
+                            }
+
+                            // Store userData for tooltips
+                            mesh.userData = {
+                                id: node.id,
+                                layer: node.layer,
+                                clase: node.clase || node.layer,
+                                tipo: node.properties?.tipo || node.id,
+                                functionDesc: getFunctionDescription(node)
+                            };
+
+                            interactableMeshes.push(mesh);
+
+                            // Grouping based on treatment
+                            if (node.clase === 'TRATAMIENTO_ACUSTICO') {
+                                treatmentGroup.add(mesh);
+                            } else {
+                                roomGroup.add(mesh);
+                            }
+                            
+                            // Special visual highlights for sources
+                            if (node.clase === 'FUENTE_SONORA') {
+                                const pointLight = new THREE.PointLight(0x38bdf8, 1, 100);
+                                mesh.add(pointLight);
+                            }
+                        }
+                    });
+                }
+
+                createAcousticVisualizations();
+
+                // Hide loader
+                setTimeout(() => {
+                    document.getElementById('loader').style.opacity = '0';
+                    setTimeout(() => document.getElementById('loader').style.display = 'none', 500);
+                }, 500);
+
+            } catch (error) {
+                console.error("Error loading JSON:", error);
+                document.getElementById('loader').textContent = "Error al cargar proyecto_obra.json";
+            }
+        }
+
+        function getFunctionDescription(node) {
+            if (node.clase === 'TRATAMIENTO_ACUSTICO') {
+                if (node.id.includes('trampa')) return "Trampa de graves apoyada en la esquina para absorber acumulación de baja frecuencia (modos axiales).";
+                if (node.id.includes('panel')) return "Panel absorbente en el punto de primera reflexión. Evita que el sonido rebote directo al oído.";
+            }
+            if (node.clase === 'FUENTE_SONORA') return "Parlante/Monitor de estudio (Emisor de sonido directo).";
+            if (node.clase === 'PUNTO_ESCUCHA') return "Sweet spot (Posición ideal del oyente).";
+            return "Elemento constructivo o mobiliario de la habitación.";
+        }
+
+        function createAcousticVisualizations() {
+            // 1. Rayos de reflexión (Rays)
+            const materialRay = new THREE.LineBasicMaterial({ color: 0xef4444, transparent: true, opacity: 0.8, linewidth: 2 });
+            
+            const sourcePositions = [
+                new THREE.Vector3(-59, 105, -151.25), // Izq
+                new THREE.Vector3(59, 105, -151.25)   // Der
+            ];
+            const listenerPos = new THREE.Vector3(0, 110, -100);
+            
+            // Reflexiones laterales (X = -131.5 y X = 131.5)
+            const refPoints = [
+                new THREE.Vector3(-126, 110, -125), // Izq pared
+                new THREE.Vector3(126, 110, -125),  // Der pared
+                new THREE.Vector3(0, 260, -125)     // Techo
+            ];
+
+            sourcePositions.forEach((src) => {
+                refPoints.forEach((ref) => {
+                    // Solo cruzar a la pared correspondiente o techo
+                    if ( (src.x < 0 && ref.x > 0) || (src.x > 0 && ref.x < 0) ) return;
+                    
+                    const points = [src, ref, listenerPos];
+                    const geometry = new THREE.BufferGeometry().setFromPoints(points);
+                    const line = new THREE.Line(geometry, materialRay);
+                    raysGroup.add(line);
+                });
+            });
+
+            // 2. Modos Axiales (Esferas pulsantes rojas en las esquinas)
+            const cornerPositions = [
+                new THREE.Vector3(-116, 100, -173),
+                new THREE.Vector3(116, 100, -173),
+                new THREE.Vector3(-116, 100, 173),
+                new THREE.Vector3(116, 100, 173)
+            ];
+
+            const modeGeo = new THREE.SphereGeometry(25, 32, 32);
+            const modeMat = new THREE.MeshBasicMaterial({ color: 0xef4444, transparent: true, opacity: 0.4, wireframe: true });
+
+            cornerPositions.forEach(pos => {
+                const sphere = new THREE.Mesh(modeGeo, modeMat);
+                sphere.position.copy(pos);
+                modesGroup.add(sphere);
+            });
+
+            // Default state is Optimized
+            raysGroup.visible = false;
+            modesGroup.visible = false;
+        }
+
+        function toggleState() {
+            isOptimized = !isOptimized;
+            
+            if (isOptimized) {
+                toggleBtn.innerHTML = 'Ver Estado Original';
+                toggleBtn.classList.remove('original');
+                
+                treatmentGroup.visible = true;
+                raysGroup.visible = false;
+                modesGroup.visible = false;
+                
+                rt60Metric.textContent = '0.5s';
+                rt60Metric.className = 'metric-value good';
+            } else {
+                toggleBtn.innerHTML = 'Ver Optimización';
+                toggleBtn.classList.add('original');
+                
+                treatmentGroup.visible = false;
+                raysGroup.visible = true;
+                modesGroup.visible = true;
+                
+                rt60Metric.textContent = '2.1s';
+                rt60Metric.className = 'metric-value bad';
+            }
+        }
+
+        function onMouseMove(event) {
+            mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+            mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+
+            tooltip.style.left = event.clientX + 15 + 'px';
+            tooltip.style.top = event.clientY + 15 + 'px';
+        }
+
+        function checkIntersections() {
+            raycaster.setFromCamera(mouse, camera);
+            // Only check visible meshes
+            const visibleMeshes = interactableMeshes.filter(m => {
+                let p = m;
+                while (p) {
+                    if (!p.visible) return false;
+                    p = p.parent;
+                }
+                return true;
+            });
+            
+            const intersects = raycaster.intersectObjects(visibleMeshes, false);
+
+            if (intersects.length > 0) {
+                const object = intersects[0].object;
+                const data = object.userData;
+
+                if (data && data.tipo) {
+                    document.body.style.cursor = 'pointer';
+                    ttTitle.textContent = data.tipo;
+                    ttClass.textContent = data.clase;
+                    ttDesc.textContent = data.functionDesc;
+                    
+                    if (data.clase === 'TRATAMIENTO_ACUSTICO') {
+                        ttClass.style.color = '#38bdf8';
+                    } else if (data.clase === 'FUENTE_SONORA' || data.clase === 'PUNTO_ESCUCHA') {
+                        ttClass.style.color = '#fbbf24';
+                    } else {
+                        ttClass.style.color = '#94a3b8';
+                    }
+
+                    tooltip.style.opacity = '1';
+                }
+            } else {
+                document.body.style.cursor = 'default';
+                tooltip.style.opacity = '0';
+            }
+        }
+
+        function onWindowResize() {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        }
+
+        function animate() {
+            controls.update();
+            checkIntersections();
+            
+            // Animate pulsing modes
+            if (!isOptimized && modesGroup.visible) {
+                const time = Date.now() * 0.003;
+                const scale = 1 + Math.sin(time) * 0.15;
+                modesGroup.children.forEach(child => {
+                    child.scale.set(scale, scale, scale);
+                });
+            }
+
+            renderer.render(scene, camera);
+        }
+    </script>
+</body>
+</html>

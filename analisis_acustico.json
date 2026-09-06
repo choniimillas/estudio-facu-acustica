@@ -1,0 +1,15 @@
+{
+    "volume_m3": 45.0,
+    "rt60_estimated_s": 2.1,
+    "target_rt60_s": 0.5,
+    "problematic_frequencies_hz": [
+        125,
+        250
+    ],
+    "room_modes_axial": [
+        34.3,
+        68.6,
+        42.5,
+        85.0
+    ]
+}
