@@ -109,6 +109,21 @@
         #tooltip .badge { display: inline-block; padding: 3px 8px; border-radius: 4px; font-size: 0.7rem; font-weight: 700; background: rgba(255,255,255,0.1); margin-bottom: 8px; }
         #tooltip p { margin: 0; font-size: 0.85rem; color: #cbd5e1; line-height: 1.5; }
 
+        .cam-btn {
+            flex: 1;
+            padding: 8px 4px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--glass-border);
+            color: var(--text-main);
+            border-radius: 6px;
+            font-size: 0.75rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .cam-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
         /* Instructions */
         .instructions { font-size: 0.8rem; color: var(--text-muted); text-align: center; display: flex; align-items: center; justify-content: center; gap: 6px;}
 
@@ -144,6 +159,15 @@
             <div class="metric-card">
                 <div class="metric-value good" id="target-metric">0.5s</div>
                 <div class="metric-label">RT60 Objetivo</div>
+            </div>
+        </div>
+
+        <div style="margin-bottom: 20px;">
+            <p style="margin: 0 0 8px 0; font-size: 0.85rem; color: var(--text-muted);">Vistas de Cámara:</p>
+            <div style="display: flex; gap: 8px;">
+                <button class="cam-btn" id="cam-iso">Exterior</button>
+                <button class="cam-btn" id="cam-sweetspot">Sweet Spot</button>
+                <button class="cam-btn" id="cam-puerta">Desde Puerta</button>
             </div>
         </div>
 
@@ -187,6 +211,9 @@
         const ttDesc = document.getElementById('tt-desc');
         const toggleBtn = document.getElementById('state-toggle');
         const rt60Metric = document.getElementById('rt60-metric');
+        const camIsoBtn = document.getElementById('cam-iso');
+        const camSweetBtn = document.getElementById('cam-sweetspot');
+        const camPuertaBtn = document.getElementById('cam-puerta');
 
         init();
         loadModel();
@@ -248,6 +275,9 @@
             window.addEventListener('resize', onWindowResize);
             window.addEventListener('mousemove', onMouseMove);
             toggleBtn.addEventListener('click', toggleState);
+            camIsoBtn.addEventListener('click', () => setCameraView(300, 350, 400, 0, 100, 0));
+            camSweetBtn.addEventListener('click', () => setCameraView(0, 110, -100, 0, 110, -151));
+            camPuertaBtn.addEventListener('click', () => setCameraView(-70, 150, 150, 0, 100, 0));
 
             // Animation loop
             renderer.setAnimationLoop(animate);
@@ -449,6 +479,12 @@
 
             tooltip.style.left = event.clientX + 15 + 'px';
             tooltip.style.top = event.clientY + 15 + 'px';
+        }
+
+        function setCameraView(cx, cy, cz, tx, ty, tz) {
+            camera.position.set(cx, cy, cz);
+            controls.target.set(tx, ty, tz);
+            controls.update();
         }
 
         function checkIntersections() {
