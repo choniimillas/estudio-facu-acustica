@@ -886,35 +886,6 @@
       }
     },
     {
-      "id": "panel_techo",
-      "layer": "MOBILIARIO",
-      "geometry": {
-        "type": "BoxGeometry",
-        "width": 240,
-        "height": 10,
-        "depth": 150
-      },
-      "transform": {
-        "position": [
-          0,
-          265.5,
-          0
-        ],
-        "rotation": [
-          0,
-          90,
-          0
-        ]
-      },
-      "material_ref": "panel_acustico_negro",
-      "properties": {
-        "tipo": "Panel Techo",
-        "capa": "MOBILIARIO",
-        "material_asignado": "panel_acustico_negro",
-        "dimensiones_cm_whd": "240 x 10 x 150"
-      }
-    },
-    {
       "id": "piso_liston_1",
       "layer": "ESTRUCTURA",
       "geometry": {
@@ -1640,35 +1611,6 @@
       }
     },
     {
-      "id": "organo_teclados",
-      "layer": "MOBILIARIO",
-      "geometry": {
-        "type": "BoxGeometry",
-        "width": 25,
-        "height": 15,
-        "depth": 105
-      },
-      "transform": {
-        "position": [
-          -81.5,
-          77.5,
-          0.5
-        ],
-        "rotation": [
-          0,
-          0,
-          0
-        ]
-      },
-      "material_ref": "plastico_teclado",
-      "properties": {
-        "tipo": "Teclados Organo",
-        "capa": "MOBILIARIO",
-        "material_asignado": "plastico_teclado",
-        "dimensiones_cm_whd": "25 x 15 x 105"
-      }
-    },
-    {
       "id": "organo_atril",
       "layer": "MOBILIARIO",
       "geometry": {
@@ -1727,27 +1669,6 @@
       }
     },
     {
-      "id": "silla_oficina",
-      "layer": "MOBILIARIO",
-      "geometry": {
-        "type": "BoxGeometry",
-        "width": 60,
-        "height": 100,
-        "depth": 60
-      },
-      "transform": {
-        "position": [0, 50, -100],
-        "rotation": [0, 0, 0]
-      },
-      "material_ref": "tela_sillon",
-      "properties": {
-        "tipo": "Silla de Oficina",
-        "capa": "MOBILIARIO",
-        "material_asignado": "tela_sillon",
-        "dimensiones_cm_whd": "60 x 100 x 60"
-      }
-    },
-    {
       "id": "fuente_izq",
       "layer": "ACUSTICA",
       "clase": "FUENTE_SONORA",
@@ -1758,8 +1679,16 @@
         "depth": 5
       },
       "transform": {
-        "position": [-59, 105, -151.25],
-        "rotation": [0, 0, 0]
+        "position": [
+          -59,
+          105,
+          -151.25
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ]
       },
       "material_ref": "negro_parlante",
       "properties": {
@@ -1777,8 +1706,16 @@
         "depth": 5
       },
       "transform": {
-        "position": [59, 105, -151.25],
-        "rotation": [0, 0, 0]
+        "position": [
+          59,
+          105,
+          -151.25
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ]
       },
       "material_ref": "negro_parlante",
       "properties": {
@@ -1796,88 +1733,20 @@
         "depth": 5
       },
       "transform": {
-        "position": [0, 110, -100],
-        "rotation": [0, 0, 0]
+        "position": [
+          0,
+          110,
+          -100
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ]
       },
       "material_ref": "mamposteria_blanca",
       "properties": {
         "tipo": "Punto de Escucha Principal"
-      }
-    },
-    {
-      "id": "trampa_graves_nw",
-      "layer": "ACUSTICA",
-      "clase": "TRATAMIENTO_ACUSTICO",
-      "geometry": {
-        "type": "BoxGeometry",
-        "width": 30,
-        "height": 200,
-        "depth": 30
-      },
-      "transform": {
-        "position": [-116, 100, -173],
-        "rotation": [0, 45, 0]
-      },
-      "material_ref": "espuma_acustica",
-      "properties": {
-        "tipo": "Trampa Graves Noroeste"
-      }
-    },
-    {
-      "id": "trampa_graves_ne",
-      "layer": "ACUSTICA",
-      "clase": "TRATAMIENTO_ACUSTICO",
-      "geometry": {
-        "type": "BoxGeometry",
-        "width": 30,
-        "height": 200,
-        "depth": 30
-      },
-      "transform": {
-        "position": [116, 100, -173],
-        "rotation": [0, 45, 0]
-      },
-      "material_ref": "espuma_acustica",
-      "properties": {
-        "tipo": "Trampa Graves Noreste"
-      }
-    },
-    {
-      "id": "trampa_graves_sw",
-      "layer": "ACUSTICA",
-      "clase": "TRATAMIENTO_ACUSTICO",
-      "geometry": {
-        "type": "BoxGeometry",
-        "width": 30,
-        "height": 200,
-        "depth": 30
-      },
-      "transform": {
-        "position": [-116, 100, 173],
-        "rotation": [0, 45, 0]
-      },
-      "material_ref": "espuma_acustica",
-      "properties": {
-        "tipo": "Trampa Graves Suroeste"
-      }
-    },
-    {
-      "id": "trampa_graves_se",
-      "layer": "ACUSTICA",
-      "clase": "TRATAMIENTO_ACUSTICO",
-      "geometry": {
-        "type": "BoxGeometry",
-        "width": 30,
-        "height": 200,
-        "depth": 30
-      },
-      "transform": {
-        "position": [116, 100, 173],
-        "rotation": [0, 45, 0]
-      },
-      "material_ref": "espuma_acustica",
-      "properties": {
-        "tipo": "Trampa Graves Sureste"
       }
     },
     {
@@ -1891,8 +1760,16 @@
         "depth": 120
       },
       "transform": {
-        "position": [-126, 110, -125],
-        "rotation": [0, 0, 0]
+        "position": [
+          -126,
+          110,
+          -125
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ]
       },
       "material_ref": "panel_acustico_negro",
       "properties": {
@@ -1910,8 +1787,16 @@
         "depth": 120
       },
       "transform": {
-        "position": [126, 110, -125],
-        "rotation": [0, 0, 0]
+        "position": [
+          126,
+          110,
+          -125
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ]
       },
       "material_ref": "panel_acustico_negro",
       "properties": {
@@ -1919,22 +1804,240 @@
       }
     },
     {
-      "id": "panel_reflexion_techo",
+      "id": "organo_teclas_blancas",
+      "layer": "MOBILIARIO",
+      "geometry": {
+        "type": "BoxGeometry",
+        "width": 20,
+        "height": 5,
+        "depth": 100
+      },
+      "transform": {
+        "position": [
+          -80,
+          75,
+          0.5
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ]
+      },
+      "material_ref": "plastico_teclado",
+      "properties": {
+        "tipo": "Teclas Blancas Organo"
+      }
+    },
+    {
+      "id": "organo_teclas_negras",
+      "layer": "MOBILIARIO",
+      "geometry": {
+        "type": "BoxGeometry",
+        "width": 10,
+        "height": 7,
+        "depth": 95
+      },
+      "transform": {
+        "position": [
+          -83,
+          76,
+          0.5
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ]
+      },
+      "material_ref": "negro_parlante",
+      "properties": {
+        "tipo": "Teclas Negras Organo"
+      }
+    },
+    {
+      "id": "silla_asiento",
+      "layer": "MOBILIARIO",
+      "geometry": {
+        "type": "BoxGeometry",
+        "width": 50,
+        "height": 8,
+        "depth": 50
+      },
+      "transform": {
+        "position": [
+          0,
+          45,
+          -100
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ]
+      },
+      "material_ref": "tela_sillon",
+      "properties": {
+        "tipo": "Asiento Silla"
+      }
+    },
+    {
+      "id": "silla_respaldo",
+      "layer": "MOBILIARIO",
+      "geometry": {
+        "type": "BoxGeometry",
+        "width": 45,
+        "height": 45,
+        "depth": 8
+      },
+      "transform": {
+        "position": [
+          0,
+          72,
+          -75
+        ],
+        "rotation": [
+          -10,
+          0,
+          0
+        ]
+      },
+      "material_ref": "tela_sillon",
+      "properties": {
+        "tipo": "Respaldo Silla"
+      }
+    },
+    {
+      "id": "silla_pilar",
+      "layer": "MOBILIARIO",
+      "geometry": {
+        "type": "BoxGeometry",
+        "width": 5,
+        "height": 35,
+        "depth": 5
+      },
+      "transform": {
+        "position": [
+          0,
+          25,
+          -100
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ]
+      },
+      "material_ref": "hierro_patas",
+      "properties": {
+        "tipo": "Pilar Silla"
+      }
+    },
+    {
+      "id": "silla_base",
+      "layer": "MOBILIARIO",
+      "geometry": {
+        "type": "BoxGeometry",
+        "width": 40,
+        "height": 5,
+        "depth": 40
+      },
+      "transform": {
+        "position": [
+          0,
+          5,
+          -100
+        ],
+        "rotation": [
+          0,
+          45,
+          0
+        ]
+      },
+      "material_ref": "hierro_patas",
+      "properties": {
+        "tipo": "Base Silla"
+      }
+    },
+    {
+      "id": "panel_techo",
       "layer": "ACUSTICA",
       "clase": "TRATAMIENTO_ACUSTICO",
       "geometry": {
         "type": "BoxGeometry",
-        "width": 120,
+        "width": 180,
         "height": 10,
-        "depth": 120
+        "depth": 150
       },
       "transform": {
-        "position": [0, 290, -125],
-        "rotation": [0, 0, 0]
+        "position": [
+          0,
+          275,
+          -125
+        ],
+        "rotation": [
+          0,
+          90,
+          0
+        ]
       },
       "material_ref": "panel_acustico_negro",
       "properties": {
         "tipo": "Panel Nube Techo"
+      }
+    },
+    {
+      "id": "trampa_graves_norte_techo",
+      "layer": "ACUSTICA",
+      "clase": "TRATAMIENTO_ACUSTICO",
+      "geometry": {
+        "type": "BoxGeometry",
+        "width": 260,
+        "height": 30,
+        "depth": 30
+      },
+      "transform": {
+        "position": [
+          0,
+          285,
+          -173
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ]
+      },
+      "material_ref": "espuma_acustica",
+      "properties": {
+        "tipo": "Trampa Graves Techo Norte"
+      }
+    },
+    {
+      "id": "trampa_graves_sur_techo",
+      "layer": "ACUSTICA",
+      "clase": "TRATAMIENTO_ACUSTICO",
+      "geometry": {
+        "type": "BoxGeometry",
+        "width": 260,
+        "height": 30,
+        "depth": 30
+      },
+      "transform": {
+        "position": [
+          0,
+          285,
+          173
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ]
+      },
+      "material_ref": "espuma_acustica",
+      "properties": {
+        "tipo": "Trampa Graves Techo Sur"
       }
     }
   ]
