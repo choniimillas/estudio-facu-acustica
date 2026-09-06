@@ -324,6 +324,23 @@
                                 node.geometry.height || 1,
                                 node.geometry.radialSegments || 8
                             );
+                        } else if (node.geometry && node.geometry.type === 'RightTrianglePrism') {
+                            const w = node.geometry.width || 40;
+                            const h = node.geometry.height || 40;
+                            const d = node.geometry.depth || 248;
+                            
+                            const shape = new THREE.Shape();
+                            shape.moveTo(0, 0);
+                            shape.lineTo(w, 0);
+                            shape.lineTo(0, h);
+                            shape.lineTo(0, 0);
+
+                            const extrudeSettings = {
+                                depth: d,
+                                bevelEnabled: false
+                            };
+                            geometry = new THREE.ExtrudeGeometry(shape, extrudeSettings);
+                            geometry.center();
                         }
 
                         if (geometry) {

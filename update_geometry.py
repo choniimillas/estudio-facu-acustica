@@ -11,7 +11,7 @@ with open('proyecto_obra.json', 'r', encoding='utf-8') as f:
 # Let's filter out the old acoustic treatments
 new_nodes = []
 for node in data['nodes']:
-    if node['clase'] == 'TRATAMIENTO_ACUSTICO':
+    if node.get('clase') == 'TRATAMIENTO_ACUSTICO':
         continue
     new_nodes.append(node)
 
@@ -52,15 +52,14 @@ new_nodes.extend([
       "layer": "ACUSTICA",
       "clase": "TRATAMIENTO_ACUSTICO",
       "geometry": {
-        "type": "CylinderGeometry",
-        "radiusTop": 25,
-        "radiusBottom": 25,
-        "height": 248,
-        "radialSegments": 3
+        "type": "RightTrianglePrism",
+        "width": 40,
+        "height": 40,
+        "depth": 248
       },
       "transform": {
-        "position": [0, 280, -165],
-        "rotation": [0, 0, 90] # Rotated to lie horizontally along the wall
+        "position": [0, 265, -161.25],
+        "rotation": [180, 90, 0]
       },
       "material_ref": "espuma_acustica",
       "properties": {
@@ -72,15 +71,14 @@ new_nodes.extend([
       "layer": "ACUSTICA",
       "clase": "TRATAMIENTO_ACUSTICO",
       "geometry": {
-        "type": "CylinderGeometry",
-        "radiusTop": 25,
-        "radiusBottom": 25,
-        "height": 248,
-        "radialSegments": 3
+        "type": "RightTrianglePrism",
+        "width": 40,
+        "height": 40,
+        "depth": 248
       },
       "transform": {
-        "position": [0, 280, 165],
-        "rotation": [0, 0, 90]
+        "position": [0, 265, 161.25],
+        "rotation": [180, -90, 0]
       },
       "material_ref": "espuma_acustica",
       "properties": {
