@@ -391,6 +391,10 @@
 
                 createAcousticVisualizations();
 
+                // Force initial state to "Original"
+                isOptimized = true; 
+                toggleState();
+
                 // Hide loader
                 setTimeout(() => {
                     document.getElementById('loader').style.opacity = '0';
