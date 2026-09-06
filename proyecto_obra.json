@@ -20,8 +20,8 @@
       "metalness": 0.0
     },
     "madera_piso": {
-      "color": "#8B658B",
-      "roughness": 0.5,
+      "color": "#3b2313",
+      "roughness": 0.8,
       "metalness": 0.0
     },
     "vidrio_ventana": {
@@ -892,7 +892,7 @@
         "type": "BoxGeometry",
         "width": 248,
         "height": 5,
-        "depth": 15
+        "depth": 14.5
       },
       "transform": {
         "position": [
@@ -921,7 +921,7 @@
         "type": "BoxGeometry",
         "width": 248,
         "height": 5,
-        "depth": 15
+        "depth": 14.5
       },
       "transform": {
         "position": [
@@ -950,7 +950,7 @@
         "type": "BoxGeometry",
         "width": 248,
         "height": 5,
-        "depth": 15
+        "depth": 14.5
       },
       "transform": {
         "position": [
@@ -979,7 +979,7 @@
         "type": "BoxGeometry",
         "width": 248,
         "height": 5,
-        "depth": 15
+        "depth": 14.5
       },
       "transform": {
         "position": [
@@ -1008,7 +1008,7 @@
         "type": "BoxGeometry",
         "width": 248,
         "height": 5,
-        "depth": 15
+        "depth": 14.5
       },
       "transform": {
         "position": [
@@ -1037,7 +1037,7 @@
         "type": "BoxGeometry",
         "width": 248,
         "height": 5,
-        "depth": 15
+        "depth": 14.5
       },
       "transform": {
         "position": [
@@ -1066,7 +1066,7 @@
         "type": "BoxGeometry",
         "width": 248,
         "height": 5,
-        "depth": 15
+        "depth": 14.5
       },
       "transform": {
         "position": [
@@ -1095,7 +1095,7 @@
         "type": "BoxGeometry",
         "width": 248,
         "height": 5,
-        "depth": 15
+        "depth": 14.5
       },
       "transform": {
         "position": [
@@ -1124,7 +1124,7 @@
         "type": "BoxGeometry",
         "width": 248,
         "height": 5,
-        "depth": 15
+        "depth": 14.5
       },
       "transform": {
         "position": [
@@ -1153,7 +1153,7 @@
         "type": "BoxGeometry",
         "width": 248,
         "height": 5,
-        "depth": 15
+        "depth": 14.5
       },
       "transform": {
         "position": [
@@ -1182,7 +1182,7 @@
         "type": "BoxGeometry",
         "width": 248,
         "height": 5,
-        "depth": 15
+        "depth": 14.5
       },
       "transform": {
         "position": [
@@ -1211,7 +1211,7 @@
         "type": "BoxGeometry",
         "width": 248,
         "height": 5,
-        "depth": 15
+        "depth": 14.5
       },
       "transform": {
         "position": [
@@ -1240,7 +1240,7 @@
         "type": "BoxGeometry",
         "width": 248,
         "height": 5,
-        "depth": 15
+        "depth": 14.5
       },
       "transform": {
         "position": [
@@ -1269,7 +1269,7 @@
         "type": "BoxGeometry",
         "width": 248,
         "height": 5,
-        "depth": 15
+        "depth": 14.5
       },
       "transform": {
         "position": [
@@ -1298,7 +1298,7 @@
         "type": "BoxGeometry",
         "width": 248,
         "height": 5,
-        "depth": 15
+        "depth": 14.5
       },
       "transform": {
         "position": [
@@ -1327,7 +1327,7 @@
         "type": "BoxGeometry",
         "width": 248,
         "height": 5,
-        "depth": 15
+        "depth": 14.5
       },
       "transform": {
         "position": [
@@ -1356,7 +1356,7 @@
         "type": "BoxGeometry",
         "width": 248,
         "height": 5,
-        "depth": 15
+        "depth": 14.5
       },
       "transform": {
         "position": [
@@ -1385,7 +1385,7 @@
         "type": "BoxGeometry",
         "width": 248,
         "height": 5,
-        "depth": 15
+        "depth": 14.5
       },
       "transform": {
         "position": [
@@ -1414,7 +1414,7 @@
         "type": "BoxGeometry",
         "width": 248,
         "height": 5,
-        "depth": 15
+        "depth": 14.5
       },
       "transform": {
         "position": [
@@ -1443,7 +1443,7 @@
         "type": "BoxGeometry",
         "width": 248,
         "height": 5,
-        "depth": 15
+        "depth": 14.5
       },
       "transform": {
         "position": [
@@ -1472,7 +1472,7 @@
         "type": "BoxGeometry",
         "width": 248,
         "height": 5,
-        "depth": 15
+        "depth": 14.5
       },
       "transform": {
         "position": [
@@ -1501,7 +1501,7 @@
         "type": "BoxGeometry",
         "width": 248,
         "height": 5,
-        "depth": 15
+        "depth": 14.5
       },
       "transform": {
         "position": [
@@ -1530,7 +1530,7 @@
         "type": "BoxGeometry",
         "width": 248,
         "height": 5,
-        "depth": 15
+        "depth": 14.5
       },
       "transform": {
         "position": [
@@ -1559,7 +1559,7 @@
         "type": "BoxGeometry",
         "width": 248,
         "height": 5,
-        "depth": 15
+        "depth": 14.5
       },
       "transform": {
         "position": [
