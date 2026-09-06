@@ -1937,22 +1937,21 @@
       "layer": "ACUSTICA",
       "clase": "TRATAMIENTO_ACUSTICO",
       "geometry": {
-        "type": "CylinderGeometry",
-        "radiusTop": 25,
-        "radiusBottom": 25,
-        "height": 248,
-        "radialSegments": 3
+        "type": "BoxGeometry",
+        "width": 248,
+        "height": 40,
+        "depth": 40
       },
       "transform": {
         "position": [
           0,
-          280,
-          -165
+          290,
+          -181.25
         ],
         "rotation": [
+          45,
           0,
-          0,
-          90
+          0
         ]
       },
       "material_ref": "espuma_acustica",
@@ -1965,22 +1964,21 @@
       "layer": "ACUSTICA",
       "clase": "TRATAMIENTO_ACUSTICO",
       "geometry": {
-        "type": "CylinderGeometry",
-        "radiusTop": 25,
-        "radiusBottom": 25,
-        "height": 248,
-        "radialSegments": 3
+        "type": "BoxGeometry",
+        "width": 248,
+        "height": 40,
+        "depth": 40
       },
       "transform": {
         "position": [
           0,
-          280,
-          165
+          290,
+          181.25
         ],
         "rotation": [
+          45,
           0,
-          0,
-          90
+          0
         ]
       },
       "material_ref": "espuma_acustica",
