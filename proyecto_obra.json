@@ -1908,7 +1908,6 @@
     {
       "id": "panel_techo_principal",
       "layer": "ACUSTICA",
-      "clase": "TRATAMIENTO_ACUSTICO",
       "geometry": {
         "type": "BoxGeometry",
         "width": 240,
