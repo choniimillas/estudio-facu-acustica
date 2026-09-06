@@ -23,6 +23,8 @@
             top: 20px;
             left: 20px;
             width: 320px;
+            max-height: 90vh;
+            overflow-y: auto;
             color: var(--text-main);
             background: var(--glass-bg);
             padding: 24px;
@@ -31,6 +33,7 @@
             backdrop-filter: blur(12px);
             box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
             pointer-events: auto;
+            box-sizing: border-box;
         }
 
         h1 { margin: 0 0 8px 0; font-size: 1.4rem; font-weight: 600; letter-spacing: -0.025em; }
@@ -129,6 +132,21 @@
 
         /* Loader */
         #loader { position: absolute; inset: 0; background: var(--bg-color); display: flex; align-items: center; justify-content: center; color: white; font-size: 1.2rem; z-index: 1000; transition: opacity 0.5s; }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            #ui-panel {
+                top: auto;
+                bottom: 0;
+                left: 0;
+                width: 100%;
+                border-radius: 20px 20px 0 0;
+                padding: 16px;
+                max-height: 40vh;
+            }
+            .cam-btn { font-size: 0.7rem; padding: 6px 2px; }
+            #tooltip { transform: translate(-50%, -100%); top: 50% !important; left: 50% !important; position: fixed; }
+        }
     </style>
     <!-- Import Three.js -->
     <script type="importmap">
@@ -173,7 +191,7 @@
 
         <div class="instructions">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><path d="M12 16v-4"></path><path d="M12 8h.01"></path></svg>
-            Navegá en 3D y pasá el mouse sobre los objetos
+            Navegá en 3D y pasá el mouse/dedo sobre los objetos
         </div>
     </div>
 
@@ -274,6 +292,7 @@
             // Event Listeners
             window.addEventListener('resize', onWindowResize);
             window.addEventListener('mousemove', onMouseMove);
+            window.addEventListener('touchstart', onTouchStart, {passive: true});
             toggleBtn.addEventListener('click', toggleState);
             camIsoBtn.addEventListener('click', () => setCameraView(300, 350, 400, 0, 100, 0));
             camSweetBtn.addEventListener('click', () => setCameraView(0, 110, -100, 0, 110, -151));
@@ -498,8 +517,17 @@
             mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
             mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
 
-            tooltip.style.left = event.clientX + 15 + 'px';
-            tooltip.style.top = event.clientY + 15 + 'px';
+            if(window.innerWidth > 768) {
+                tooltip.style.left = event.clientX + 15 + 'px';
+                tooltip.style.top = event.clientY + 15 + 'px';
+            }
+        }
+
+        function onTouchStart(event) {
+            if(event.touches.length > 0) {
+                mouse.x = (event.touches[0].clientX / window.innerWidth) * 2 - 1;
+                mouse.y = -(event.touches[0].clientY / window.innerHeight) * 2 + 1;
+            }
         }
 
         function setCameraView(cx, cy, cz, tx, ty, tz) {
