@@ -2039,6 +2039,60 @@
       "properties": {
         "tipo": "Panel Reflexion Derecho"
       }
+    },
+    {
+      "id": "panel_trasero_izq",
+      "layer": "ACUSTICA",
+      "clase": "TRATAMIENTO_ACUSTICO",
+      "geometry": {
+        "type": "BoxGeometry",
+        "width": 80,
+        "height": 120,
+        "depth": 10
+      },
+      "transform": {
+        "position": [
+          -60,
+          110,
+          176.25
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ]
+      },
+      "material_ref": "panel_acustico_negro",
+      "properties": {
+        "tipo": "Panel Absorbente Trasero Izq"
+      }
+    },
+    {
+      "id": "panel_trasero_der",
+      "layer": "ACUSTICA",
+      "clase": "TRATAMIENTO_ACUSTICO",
+      "geometry": {
+        "type": "BoxGeometry",
+        "width": 80,
+        "height": 120,
+        "depth": 10
+      },
+      "transform": {
+        "position": [
+          60,
+          110,
+          176.25
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ]
+      },
+      "material_ref": "panel_acustico_negro",
+      "properties": {
+        "tipo": "Panel Absorbente Trasero Der"
+      }
     }
   ]
 }
