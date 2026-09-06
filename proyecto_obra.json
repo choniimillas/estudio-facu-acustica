@@ -1750,60 +1750,6 @@
       }
     },
     {
-      "id": "panel_reflexion_izq",
-      "layer": "ACUSTICA",
-      "clase": "TRATAMIENTO_ACUSTICO",
-      "geometry": {
-        "type": "BoxGeometry",
-        "width": 10,
-        "height": 120,
-        "depth": 120
-      },
-      "transform": {
-        "position": [
-          -126,
-          110,
-          -125
-        ],
-        "rotation": [
-          0,
-          0,
-          0
-        ]
-      },
-      "material_ref": "panel_acustico_negro",
-      "properties": {
-        "tipo": "Panel Reflexion Izquierdo"
-      }
-    },
-    {
-      "id": "panel_reflexion_der",
-      "layer": "ACUSTICA",
-      "clase": "TRATAMIENTO_ACUSTICO",
-      "geometry": {
-        "type": "BoxGeometry",
-        "width": 10,
-        "height": 120,
-        "depth": 120
-      },
-      "transform": {
-        "position": [
-          126,
-          110,
-          -125
-        ],
-        "rotation": [
-          0,
-          0,
-          0
-        ]
-      },
-      "material_ref": "panel_acustico_negro",
-      "properties": {
-        "tipo": "Panel Reflexion Derecho"
-      }
-    },
-    {
       "id": "organo_teclas_blancas",
       "layer": "MOBILIARIO",
       "geometry": {
@@ -1960,12 +1906,12 @@
       }
     },
     {
-      "id": "panel_techo",
+      "id": "panel_techo_principal",
       "layer": "ACUSTICA",
       "clase": "TRATAMIENTO_ACUSTICO",
       "geometry": {
         "type": "BoxGeometry",
-        "width": 180,
+        "width": 240,
         "height": 10,
         "depth": 150
       },
@@ -1973,17 +1919,17 @@
         "position": [
           0,
           275,
-          -125
+          -106
         ],
         "rotation": [
           0,
-          90,
+          0,
           0
         ]
       },
       "material_ref": "panel_acustico_negro",
       "properties": {
-        "tipo": "Panel Nube Techo"
+        "tipo": "Panel Nube Techo (240x150)"
       }
     },
     {
@@ -1991,26 +1937,27 @@
       "layer": "ACUSTICA",
       "clase": "TRATAMIENTO_ACUSTICO",
       "geometry": {
-        "type": "BoxGeometry",
-        "width": 260,
-        "height": 30,
-        "depth": 30
+        "type": "CylinderGeometry",
+        "radiusTop": 25,
+        "radiusBottom": 25,
+        "height": 248,
+        "radialSegments": 3
       },
       "transform": {
         "position": [
           0,
-          285,
-          -173
+          280,
+          -165
         ],
         "rotation": [
           0,
           0,
-          0
+          90
         ]
       },
       "material_ref": "espuma_acustica",
       "properties": {
-        "tipo": "Trampa Graves Techo Norte"
+        "tipo": "Trampa Graves Esquinera Norte"
       }
     },
     {
@@ -2018,16 +1965,44 @@
       "layer": "ACUSTICA",
       "clase": "TRATAMIENTO_ACUSTICO",
       "geometry": {
-        "type": "BoxGeometry",
-        "width": 260,
-        "height": 30,
-        "depth": 30
+        "type": "CylinderGeometry",
+        "radiusTop": 25,
+        "radiusBottom": 25,
+        "height": 248,
+        "radialSegments": 3
       },
       "transform": {
         "position": [
           0,
-          285,
-          173
+          280,
+          165
+        ],
+        "rotation": [
+          0,
+          0,
+          90
+        ]
+      },
+      "material_ref": "espuma_acustica",
+      "properties": {
+        "tipo": "Trampa Graves Esquinera Sur"
+      }
+    },
+    {
+      "id": "panel_reflexion_izq",
+      "layer": "ACUSTICA",
+      "clase": "TRATAMIENTO_ACUSTICO",
+      "geometry": {
+        "type": "BoxGeometry",
+        "width": 10,
+        "height": 120,
+        "depth": 80
+      },
+      "transform": {
+        "position": [
+          -119,
+          110,
+          -125
         ],
         "rotation": [
           0,
@@ -2035,9 +2010,36 @@
           0
         ]
       },
-      "material_ref": "espuma_acustica",
+      "material_ref": "panel_acustico_negro",
       "properties": {
-        "tipo": "Trampa Graves Techo Sur"
+        "tipo": "Panel Reflexion Izquierdo"
+      }
+    },
+    {
+      "id": "panel_reflexion_der",
+      "layer": "ACUSTICA",
+      "clase": "TRATAMIENTO_ACUSTICO",
+      "geometry": {
+        "type": "BoxGeometry",
+        "width": 10,
+        "height": 120,
+        "depth": 80
+      },
+      "transform": {
+        "position": [
+          119,
+          110,
+          -125
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ]
+      },
+      "material_ref": "panel_acustico_negro",
+      "properties": {
+        "tipo": "Panel Reflexion Derecho"
       }
     }
   ]
